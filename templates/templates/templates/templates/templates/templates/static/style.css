@@ -1,0 +1,49 @@
+body {
+  background: #f0f4f8;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.hover-card {
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer;
+}
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.15) !important;
+}
+
+.card {
+  border-radius: 14px;
+}
+
+.navbar {
+  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+}
+
+.table thead th {
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+
+.progress {
+  border-radius: 8px;
+  background: #e2e8f0;
+}
+
+.progress-bar {
+  border-radius: 8px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+input.form-control, select.form-control {
+  border-radius: 8px;
+}
+
+.btn {
+  border-radius: 8px;
+}
+
+.alert {
+  border-radius: 10px;
+}
