@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Historique patients – SkinAI{% endblock %}
+{% block content %}
+<h2 class="fw-bold mb-4"><i class="bi bi-people-fill text-primary me-2"></i>Historique des patients</h2>
+
+{% if patients %}
+<div class="table-responsive">
+  <table class="table table-hover align-middle shadow-sm rounded">
+    <thead class="table-primary">
+      <tr>
+        <th>#</th>
+        <th>Image</th>
+        <th>Nom</th>
+        <th>Âge</th>
+        <th>Résultat</th>
+        <th>Probabilité</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in patients %}
+      <tr>
+        <td>{{ p['id'] }}</td>
+        <td>
+          {% if p['image_path'] %}
+            <img src="/{{ p['image_path'] }}" width="60" height="60"
+                 class="img-thumbnail rounded" style="object-fit:cover"/>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </td>
+        <td class="fw-semibold">{{ p['name'] }}</td>
+        <td>{{ p['age'] }}</td>
+        <td>
+          {% if p['result'] == 'Malignant' %}
+            <span class="badge bg-danger"><i class="bi bi-exclamation-triangle me-1"></i>Malignant</span>
+          {% else %}
+            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Benign</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="progress" style="height:16px; min-width:80px">
+            <div class="progress-bar {% if p['result'] == 'Malignant' %}bg-danger{% else %}bg-success{% endif %}"
+                 style="width:{{ (p['probability'] * 100)|round(0) }}%">
+              {{ (p['probability'] * 100)|round(2) }}%
+            </div>
+          </div>
+        </td>
+        <td class="text-muted" style="font-size:.85rem">{{ p['created_at'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <div class="alert alert-info">
+    <i class="bi bi-info-circle me-2"></i>Aucun patient enregistré pour l'instant.
+  </div>
+{% endif %}
+
+<a href="/predict" class="btn btn-primary mt-2">
+  <i class="bi bi-plus-circle me-1"></i>Nouvelle analyse
+</a>
+{% endblock %}
