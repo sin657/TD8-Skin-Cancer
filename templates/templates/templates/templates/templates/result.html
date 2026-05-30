@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Résultat – SkinAI{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center">
+    <div class="card shadow border-0">
+      <div class="card-body p-5">
+        <h2 class="fw-bold mb-4"><i class="bi bi-clipboard2-pulse text-primary me-2"></i>Résultat du diagnostic</h2>
+
+        {% if result == "Malignant" %}
+          <div class="alert alert-danger fs-5 fw-bold">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Diagnostic : <strong>Malin (Malignant)</strong>
+          </div>
+        {% else %}
+          <div class="alert alert-success fs-5 fw-bold">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            Diagnostic : <strong>Bénin (Benign)</strong>
+          </div>
+        {% endif %}
+
+        <p class="mb-1"><strong>Patient :</strong> {{ name }}, {{ age }} ans</p>
+        <p class="mb-3"><strong>Confiance :</strong>
+          <span class="badge {% if result == 'Malignant' %}bg-danger{% else %}bg-success{% endif %} fs-6">
+            {{ prob }} %
+          </span>
+        </p>
+
+        <div class="mb-4">
+          <img src="/{{ img }}" alt="Lésion analysée" class="img-thumbnail" style="max-height:280px"/>
+        </div>
+
+        <div class="progress mb-4" style="height:20px">
+          <div class="progress-bar {% if result == 'Malignant' %}bg-danger{% else %}bg-success{% endif %}"
+               role="progressbar" style="width:{{ prob }}%">{{ prob }}%</div>
+        </div>
+
+        <a href="/predict" class="btn btn-primary me-2">
+          <i class="bi bi-plus-circle me-1"></i>Nouvelle analyse
+        </a>
+        <a href="/dashboard" class="btn btn-outline-secondary">
+          <i class="bi bi-house me-1"></i>Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
